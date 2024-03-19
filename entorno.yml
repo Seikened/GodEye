@@ -2,7 +2,6 @@ name: god-eye-env
 channels:
   - defaults
   - conda-forge
-  - apple
 dependencies:
   - python=3.8
   - pip
