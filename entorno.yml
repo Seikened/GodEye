@@ -10,8 +10,5 @@ dependencies:
   - numpy
   - matplotlib
   - scikit-learn
-  - conda:
-      - tensorflow-deps
   - pip:
-      - tensorflow-macos
-      - tensorflow-metal
+      - tensorflow
