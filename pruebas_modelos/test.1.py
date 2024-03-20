@@ -2,7 +2,7 @@ import cv2
 import face_recognition
 
 # Inicia la captura de video
-cap = cv2.VideoCapture(0)  # Cambia a 0 si tu cámara es la principal
+cap = cv2.VideoCapture(1)  # Cambia a 0 si tu cámara es la principal
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
 

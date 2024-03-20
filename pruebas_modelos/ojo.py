@@ -21,9 +21,6 @@ while True:
     k = cv2.waitKey(30) & 0xff
     if k == 27:  # Tecla ESC
         break
-    
-    
-    
 import cv2
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
