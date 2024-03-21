@@ -9,4 +9,3 @@ app.py: Registrar a la persona que se dectecto en el ojo.py
 
 ###  eye.py
 eye.py: Detección de del rostro de la persona y quien es a quien se le detecto
-
