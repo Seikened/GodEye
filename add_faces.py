@@ -5,7 +5,7 @@ import os
 
 
 # Inicialización de la cámara
-video=cv2.VideoCapture(1) # el argumento es el índice de la cámara
+video=cv2.VideoCapture(0) # el argumento es el índice de la cámara
 
 detector_de_rostros=cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
@@ -30,10 +30,11 @@ while True:
         crop_img=frame[y:y+h, x:x+w, :]
         # Aqui redimensiona el rostro a 50x50 (para que sea igual a los datos de entrenamiento)
         resized_img=cv2.resize(crop_img, (50,50))
+        resized_img_rgb = cv2.cvtColor(resized_img, cv2.COLOR_BGR2RGB)
         
         #  Se verifica si se han recolectado menos de 100 rostros y si el contador i es múltiplo de 10. Esta condición ayuda a espaciar la recolección de datos de rostros para no capturar imágenes demasiado similares consecutivamente.
         if len(datos_de_las_caras)<=100 and i%10==0:
-            datos_de_las_caras.append(resized_img)
+            datos_de_las_caras.append(resized_img_rgb)
         
         # Se incrementa el contador por cada rostro detectado
         i=i+1
