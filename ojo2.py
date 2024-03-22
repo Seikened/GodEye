@@ -1,17 +1,32 @@
 import cv2
 import face_recognition
 import pickle
+import os
 
+
+ruta = os.getcwd()
+names_path = os.path.join(ruta,'data' ,'names.pkl')
+face_data_path = os.path.join(ruta,'data' ,'faces_data.pkl')
+
+
+
+    
 # Carga de datos y modelo
-with open('data/names.pkl', 'rb') as f:
+with open(names_path, 'rb') as f:
     nombres_conocidos = pickle.load(f)
-with open('data/faces_data.pkl', 'rb') as f:
+with open(face_data_path, 'rb') as f:
     codificaciones_conocidas = pickle.load(f)
+    
+
+
+
+
 
 # Inicia la captura de video
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+
 
 while True:
     ret, frame = cap.read()
@@ -32,9 +47,11 @@ while True:
         if caras_detectadas_cnn:
             codificaciones_caras = face_recognition.face_encodings(face_frame_rgb, caras_detectadas_cnn)
 
+
             # Suponiendo que solo hay una cara por frame para simplificar
             if codificaciones_caras:
                 codificacion_cara = codificaciones_caras[0]
+            try:
                 coincidencias = face_recognition.compare_faces(codificaciones_conocidas, codificacion_cara)
 
                 nombre = "Desconocido"
@@ -44,6 +61,8 @@ while True:
 
                 cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
                 cv2.putText(frame, nombre, (left, bottom + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255), 2)
+            except Exception as e:
+                print(f"Se produjo un error durante la comparación: {e}")
 
     cv2.imshow('Video', frame)
 
