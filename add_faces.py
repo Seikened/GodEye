@@ -13,8 +13,6 @@ name = input("Enter Your Name: ")
 
 while len(codificaciones_de_las_caras) < 100:
     ret, frame = video.read()
-    if not ret:
-        break
 
     gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = detector_de_rostros.detectMultiScale(gris, 1.3, 5)

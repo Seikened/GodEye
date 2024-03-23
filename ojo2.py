@@ -24,8 +24,8 @@ with open(face_data_path, 'rb') as f:
 
 # Inicia la captura de video
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 
 while True:
@@ -33,36 +33,24 @@ while True:
     if not ret:
         break
 
-    # Detecta rostros con 'hog'
-    caras_detectadas_hog = face_recognition.face_locations(frame, model='hog')
+    caras_detectadas = face_recognition.face_locations(frame, model='cnn')
 
-    for top, right, bottom, left in caras_detectadas_hog:
+    for top, right, bottom, left in caras_detectadas:
         face_frame = frame[top:bottom, left:right]
-        face_frame_rgb = cv2.cvtColor(face_frame, cv2.COLOR_BGR2RGB)  # Asegúrate de convertir a RGB
+        face_frame_rgb = cv2.cvtColor(face_frame, cv2.COLOR_BGR2RGB)
 
-        # Valida la detección con 'cnn' en la ROI
-        caras_detectadas_cnn = face_recognition.face_locations(face_frame_rgb, model='cnn')
+        codificaciones_caras = face_recognition.face_encodings(face_frame_rgb, known_face_locations=[(0, face_frame.shape[1], face_frame.shape[0], 0)])
 
-        # Si 'cnn' confirma una cara, obtén las codificaciones
-        if caras_detectadas_cnn:
-            codificaciones_caras = face_recognition.face_encodings(face_frame_rgb, caras_detectadas_cnn)
+        for codificacion_cara in codificaciones_caras:
+            coincidencias = face_recognition.compare_faces(codificaciones_conocidas, codificacion_cara)
+            nombre = "Desconocido"
+            
+            if True in coincidencias:
+                primer_coincidencia = coincidencias.index(True)
+                nombre = nombres_conocidos[primer_coincidencia]
 
-
-            # Suponiendo que solo hay una cara por frame para simplificar
-            if codificaciones_caras:
-                codificacion_cara = codificaciones_caras[0]
-            try:
-                coincidencias = face_recognition.compare_faces(codificaciones_conocidas, codificacion_cara)
-
-                nombre = "Desconocido"
-                if True in coincidencias:
-                    primer_coincidencia = coincidencias.index(True)
-                    nombre = nombres_conocidos[primer_coincidencia]
-
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
-                cv2.putText(frame, nombre, (left, bottom + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255), 2)
-            except Exception as e:
-                print(f"Se produjo un error durante la comparación: {e}")
+            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
+            cv2.putText(frame, nombre, (left, bottom + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255), 2)
 
     cv2.imshow('Video', frame)
 
