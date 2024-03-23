@@ -35,7 +35,7 @@ while len(codificaciones_de_las_caras) < 100:
         break
 
 video.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows() 
 
 # Convertir la lista de codificaciones a un arreglo de numpy
 codificaciones_de_las_caras = np.asarray(codificaciones_de_las_caras)

@@ -9,20 +9,12 @@ names_path = os.path.join(ruta,'data' ,'names.pkl')
 face_data_path = os.path.join(ruta,'data' ,'faces_data.pkl')
 
 
-
-    
-# Carga de datos y modelo
 with open(names_path, 'rb') as f:
     nombres_conocidos = pickle.load(f)
 with open(face_data_path, 'rb') as f:
     codificaciones_conocidas = pickle.load(f)
-    
 
 
-
-
-
-# Inicia la captura de video
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
