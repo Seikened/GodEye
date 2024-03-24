@@ -14,3 +14,4 @@ for indice in range(10):
 
 
 print(f"Cámaras disponibles: {camaras_disponibles}")
+s
