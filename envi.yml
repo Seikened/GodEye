@@ -1,4 +1,4 @@
-name: /Users/fernandoleonfranco/miniconda3/envs/godeye
+name: godeye
 channels:
   - defaults
 dependencies:
@@ -96,4 +96,3 @@ dependencies:
       - urllib3==2.2.1
       - werkzeug==3.0.1
       - wrapt==1.16.0
-prefix: /Users/fernandoleonfranco/miniconda3/envs/godeye
