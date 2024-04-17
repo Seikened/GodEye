@@ -25,7 +25,7 @@ while True:
     if not ret:
         break
 
-    caras_detectadas = face_recognition.face_locations(frame, model='cnn')
+    caras_detectadas = face_recognition.face_locations(frame, model='hog') 
 
     for top, right, bottom, left in caras_detectadas:
         face_frame = frame[top:bottom, left:right]

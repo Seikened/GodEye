@@ -3,7 +3,7 @@ import pickle
 
 # Leamos el archivo
 ruta = 'data/names.pkl'
-ruta = 'data/faces_data.pkl'
+#ruta = 'data/faces_data.pkl'
 
 #Abrimos e imprime el contenido del archivo
 
